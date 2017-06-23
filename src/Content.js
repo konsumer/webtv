@@ -15,7 +15,7 @@ const style = {
 
 // TODO: make StreamSelect scroll, but stay on page
 
-export const Content = ({user, login}) => (<section style={style.Content}>{user.username ? (<div><Player /><StreamSelect /></div>) : <div style={style.noLogin}>You will need to <button onClick={login}>login</button> to do anything cool.</div>}</section>)
+export const Content = ({channels, login}) => (<section style={style.Content}>{channels && channels.length ? (<div><Player /><StreamSelect /></div>) : <div style={style.noLogin}>You will need to <button onClick={login}>login</button> to do anything cool.</div>}</section>)
 
 const mapStateToProps = state => state
 

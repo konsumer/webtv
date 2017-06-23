@@ -32,6 +32,12 @@ export const updateData = (state) => fetch('https://liteiptv-server-ve6uxt1e6hto
     }
   })
   .then(r => r.json())
+  .then(data => {
+    if (data.user_info.status === 'Expired') {
+      throw new Error('Trial expired.')
+    }
+    return data
+  })
   .then(panel => store.dispatch({type: 'dataComplete', data: panel}))
   .catch(err => store.dispatch({type: 'dataError', data: err}))
 
