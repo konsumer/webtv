@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --progress --quiet --hot --inline --no-info --content-base=./webroot",
-    "build": "cross-env NODE_ENV=production webpack --progress"
+    "build": "cross-env NODE_ENV=production webpack --progress",
+    "deploy": "npm run build && git-directory-deploy --directory webroot --branch gh-pages"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babili-webpack-plugin": "^0.1.1",
     "cross-env": "^5.0.1",
+    "git-directory-deploy": "^1.5.1",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0"
   },
