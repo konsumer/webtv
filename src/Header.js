@@ -21,7 +21,7 @@ const style = {
 export const Header = ({user, login, logout}) => (<header style={style.header}>
   <h1 style={style.h1}>LiteIPTV Client</h1>
   <div style={style.buttonHolder}>
-    {user && user.username && <button onClick={logout}>logout</button> }
+    {user && user.auth && user.status !== 'Expired' && <button onClick={logout}>logout</button>}
   </div>
 </header>)
 
