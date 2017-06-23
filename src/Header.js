@@ -21,13 +21,11 @@ const style = {
 export const Header = ({user, login, logout}) => (<header style={style.header}>
   <h1 style={style.h1}>LiteIPTV Client</h1>
   <div style={style.buttonHolder}>
-    {user.username && <button onClick={logout}>logout</button> }
+    {user && user.username && <button onClick={logout}>logout</button> }
   </div>
 </header>)
 
-const mapStateToProps = (state) => ({
-  user: state.user
-})
+const mapStateToProps = state => state
 
 const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch({type: 'logout'})
