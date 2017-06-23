@@ -30,9 +30,9 @@ export const LoginDialog = ({onLogin, onCancel, showLogin, loggingIn, set, user,
   <fieldset style={style.dialog}>
     {error && <div style={style.error}>{error.message}</div>}
     <label htmlFor='username'>username</label>
-    <input value={user.username} type='text' id='username' onChange={set('username')} />
+    <input value={user && user.username} type='text' id='username' onChange={set('username')} />
     <label htmlFor='password'>password</label>
-    <input value={user.password} type='password' id='password' onChange={set('password')} />
+    <input value={user && user.password} type='password' id='password' onChange={set('password')} />
     <div style={style.buttons}>
       <button style={{marginRight: 5}} className='button button-outline' onClick={onCancel}>cancel</button>
       <button disabled={loggingIn} className='button' onClick={onLogin}>login</button>
