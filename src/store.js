@@ -12,6 +12,9 @@ keys.forEach(key => {
   initialState[key] = (localStorage[key] && JSON.parse(localStorage[key])) || {}
 })
 
+initialState.user.username = initialState.user.username || ''
+initialState.user.password = initialState.user.password || ''
+
 /**
  * Dispatch dataComplete/dataError to get panel
  * @param  {object} state Current redux state
@@ -40,7 +43,7 @@ export const updateData = (state) => fetch('https://liteiptv-server-ve6uxt1e6hto
   .then(panel => store.dispatch({type: 'dataComplete', data: panel}))
   .catch(err => store.dispatch({type: 'dataError', data: err}))
 
-const app = (state = {selectedStream: null, error: null, showLogin: false, loggingIn: false, ...initialState}, action) => {
+const app = (state = {selectedStream: null, error: null, showLogin: false, loggingIn: false, user: initialState.user, channels: initialState.channels, categories: initialState.categories}, action) => {
   switch (action.type) {
     case 'loginShow':
       return Object.assign({}, state, {showLogin: true, loggingIn: false})
