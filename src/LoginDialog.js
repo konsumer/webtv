@@ -45,7 +45,7 @@ const mapStateToProps = state => state
 const mapDispatchToProps = (dispatch) => ({
   onLogin: (user, password) => dispatch({type: 'login'}),
   onCancel: () => dispatch({type: 'loginCancel'}),
-  set: (name) => (e) => dispatch({type: 'loginUpdate', data: {name, value: e.target.value}})
+  set: name => e => dispatch({type: 'loginUpdate', data: {name, value: e.target.value}})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginDialog)

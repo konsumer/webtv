@@ -49,6 +49,6 @@ const StreamSelect = ({channels, categories, setStream}) => (<div>
 
 const mapStateToProps = state => state
 const mapDispatchToProps = dispatch => ({
-  setStream: (stream) => dispatch({type: 'setStream', data: stream})
+  setStream: stream => dispatch({type: 'setStream', data: stream})
 })
 export default connect(mapStateToProps, mapDispatchToProps)(StreamSelect)

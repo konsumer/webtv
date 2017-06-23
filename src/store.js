@@ -7,11 +7,10 @@ import { createStore } from 'redux'
 
 // re-constitue from localStorage, if avaliable
 const initialState = {}
-const keys = ['channels', 'categories']
+const keys = ['channels', 'categories', 'user']
 keys.forEach(key => {
-  initialState[key] = (localStorage[key] && JSON.parse(localStorage[key])) || []
+  initialState[key] = (localStorage[key] && JSON.parse(localStorage[key])) || {}
 })
-initialState.user = (localStorage.user && JSON.parse(localStorage.user)) || {}
 
 /**
  * Dispatch dataComplete/dataError to get panel
