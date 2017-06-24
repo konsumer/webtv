@@ -34,7 +34,7 @@ const StreamSelect = ({channels, categories, setStream}) => (<div>
                 .filter(channel => channels[channel].stream_type === type && channels[channel].category_name === cat.category_name)
                 .map((channel, i) => (
                   <div key={i} style={style.channel} onClick={() => setStream(channels[channel])}>
-                    <ReactImageFallback style={style.icon} src={channels[channel].stream_icon} fallbackImage='/unavailable_channel.png' initialImage='/loader.gif' />
+                    <ReactImageFallback style={style.icon} src={channels[channel].stream_icon} fallbackImage='unavailable_channel.png' initialImage='loader.gif' />
                     <div>{channels[channel].name}</div>
                   </div>
                 ))
