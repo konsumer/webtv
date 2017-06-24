@@ -9,7 +9,7 @@ const style = {
 const Player = ({selectedStream, user}) => (<div style={style.Player}>
   {selectedStream && (
     <div>
-      <ReactPlayer url={`http://ok2.se:8000/${selectedStream.stream_type}/${user.username}/${user.password}/${selectedStream.stream_id}.m3u8`} />
+      <ReactPlayer playing url={`http://ok2.se:8000/${selectedStream.stream_type}/${user.username}/${user.password}/${selectedStream.stream_id}.m3u8`} />
       <h5>{selectedStream.name} ({selectedStream.stream_type})</h5>
     </div>
   )}
