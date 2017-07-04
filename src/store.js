@@ -11,11 +11,10 @@ const get = (url = '') => fetch(`${API_URL_BASE}player_api.php${url}`)
     return r.json().then(e => { throw new Error(e.message) })
   })
 
-export const reducer = (state = {user, streams: [], stream: null, categories: [], category: null, videoType: localStorage.videoType || 'live', formInProgress: false, showLogin: false, formError: null, formUser: '', formPassword: ''}, action) => {
+export const reducer = (state = {user, streams: [], stream: null, categories: [], category: null, videoType: 'live', formInProgress: false, showLogin: false, formError: null, formUser: '', formPassword: ''}, action) => {
   switch (action.type) {
     case 'set':
       if (action.data.field === 'videoType') {
-        localStorage.videoType = action.data.value
         get(`?username=${state.user.username}&password=${state.user.password}&action=get_${action.data.value}_categories`)
           .then(cats => {
             store.dispatch({type: 'set', data: {field: 'categories', value: cats}})
