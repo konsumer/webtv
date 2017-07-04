@@ -6,7 +6,7 @@ import DropdownItem from 'muicss/lib/react/dropdown-item'
 
 export const Categories = ({categories, category, onCategory}) => (
   <Dropdown color='primary' label={category || 'Category'}>
-    {categories.map(c => (<DropdownItem onClick={onCategory(c.category_name)} key={c.category_id}>{c.category_name}</DropdownItem>))}
+    {categories && categories.map(c => (<DropdownItem onClick={onCategory(c.category_name)} key={c.category_id}>{c.category_name}</DropdownItem>))}
   </Dropdown>
 )
 
