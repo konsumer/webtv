@@ -1,8 +1,6 @@
 /* global localStorage fetch */
 import { createStore } from 'redux'
 
-const user = localStorage.user && JSON.parse(localStorage.user)
-
 const API_URL_BASE = process.env.API_URL_BASE || 'https://crossorigin.me/http://ok2.se:8000/'
 
 const get = (url = '') => fetch(`${API_URL_BASE}player_api.php${url}`)
@@ -11,7 +9,7 @@ const get = (url = '') => fetch(`${API_URL_BASE}player_api.php${url}`)
     return r.json().then(e => { throw new Error(e.message) })
   })
 
-export const reducer = (state = {user, streams: [], stream: null, categories: [], category: null, videoType: 'live', formInProgress: false, showLogin: false, formError: null, formUser: '', formPassword: ''}, action) => {
+export const reducer = (state = {user: localStorage.user && JSON.parse(localStorage.user), streams: [], stream: null, categories: [], category: null, videoType: 'live', formInProgress: false, showLogin: false, formError: null, formUser: '', formPassword: ''}, action) => {
   switch (action.type) {
     case 'set':
       if (action.data.field === 'videoType') {
@@ -59,7 +57,7 @@ export const reducer = (state = {user, streams: [], stream: null, categories: []
 const store = createStore(reducer, process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 // setup initial categories if user is logged in
-if (user) {
+if (localStorage.user) {
   store.dispatch({type: 'set', data: {field: 'videoType', value: 'live'}})
 }
 
