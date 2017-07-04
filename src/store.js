@@ -13,10 +13,12 @@ export const reducer = (state = {user: localStorage.user && JSON.parse(localStor
   switch (action.type) {
     case 'set':
       if (action.data.field === 'videoType') {
-        get(`?username=${state.user.username}&password=${state.user.password}&action=get_${action.data.value}_categories`)
+        if (state.user) {
+          get(`?username=${state.user.username}&password=${state.user.password}&action=get_${action.data.value}_categories`)
           .then(cats => {
             store.dispatch({type: 'set', data: {field: 'categories', value: cats}})
           })
+        }
         return Object.assign({}, state, {videoType: action.data.value, categories: [], streams: []})
       }
       if (action.data.field === 'category' && action.data.value !== null) {
