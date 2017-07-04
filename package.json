@@ -4,9 +4,10 @@
   "description": "web-based client for liteiptv",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --quiet --hot --inline --no-info --content-base=./webroot",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --progress --quiet --hot --inline --no-info --content-base=./webroot",
     "build": "cross-env NODE_ENV=production webpack --progress",
-    "deploy": "npm run build && git-directory-deploy --directory webroot --branch gh-pages"
+    "deploy": "npm run build && git-directory-deploy --directory webroot --branch gh-pages",
+    "test": "standard --fix 'src/**/*.js' && jest"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/konsumer/webtv#readme",
   "dependencies": {
+    "muicss": "^0.9.17",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-image-fallback": "^5.0.0",
@@ -34,7 +36,11 @@
     "babel-preset-stage-0": "^6.24.1",
     "babili-webpack-plugin": "^0.1.1",
     "cross-env": "^5.0.1",
+    "css-loader": "^0.28.4",
     "git-directory-deploy": "^1.5.1",
+    "jest": "^20.0.4",
+    "standard": "^10.0.2",
+    "style-loader": "^0.18.2",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0"
   },

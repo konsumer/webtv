@@ -1,0 +1,12 @@
+.LoginForm {
+  padding: 10px;
+}
+
+.error {
+    color: #F44336; /* red-500 */
+}
+
+.buttons {
+  display:flex;
+  justify-content: flex-end;
+}

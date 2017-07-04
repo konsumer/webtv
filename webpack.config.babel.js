@@ -3,6 +3,16 @@ import { resolve } from 'path'
 import BabiliPlugin from 'babili-webpack-plugin'
 const { ModuleConcatenationPlugin } = optimize
 
+const env = {
+  'process.env': {
+    NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+  }
+}
+
+if (process.env.API_URL_BASE) {
+  env['process.env'].API_URL_BASE = JSON.stringify(process.env.API_URL_BASE)
+}
+
 const config = {
   entry: {
     app: [
@@ -19,20 +29,38 @@ const config = {
       {
         test: /\.jsx?$/,
         exclude: /(node_modules)/,
-        loader: 'babel-loader'
+        use: [
+          {loader: 'babel-loader'}
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: process.env.NODE_ENV === 'production',
+              sourceMap: process.env.NODE_ENV !== 'production',
+              modules: true
+            }
+          }
+        ]
       }
     ]
   },
   plugins: [
-    new DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-    })
+    new DefinePlugin(env)
   ]
 }
 
 if (process.env.NODE_ENV === 'production') {
   config.plugins.push(new ModuleConcatenationPlugin())
   config.plugins.push(new BabiliPlugin())
+} else {
+  config.devtool = 'source-map'
 }
 
 export default config

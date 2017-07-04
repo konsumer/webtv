@@ -1,80 +1,67 @@
 /* global localStorage fetch */
-
 import { createStore } from 'redux'
 
-// TODO: set interval to update channels/categories every 15 minutes or so
-// TODO: get an EPG
+const user = localStorage.user && JSON.parse(localStorage.user)
 
-// re-constitue from localStorage, if avaliable
-const initialState = {}
-const keys = ['channels', 'categories', 'user']
-keys.forEach(key => {
-  initialState[key] = (localStorage[key] && JSON.parse(localStorage[key])) || {}
-})
+const API_URL_BASE = process.env.API_URL_BASE || 'https://crossorigin.me/http://ok2.se:8000/'
 
-initialState.user.username = initialState.user.username || ''
-initialState.user.password = initialState.user.password || ''
-
-/**
- * Dispatch dataComplete/dataError to get panel
- * @param  {object} state Current redux state
- * @return {Promise}
- */
-export const updateData = (state) => fetch('https://liteiptv-server-ve6uxt1e6hto.runkit.sh/', {
-  method: 'POST',
-  headers: {'Content-Type': 'application/json'},
-  body: JSON.stringify({username: state.user.username, password: state.user.password})
-})
+const get = (url = '') => fetch(`${API_URL_BASE}player_api.php${url}`)
   .then(r => {
-    if (r.status !== 200) {
-      return r.json()
-        .then(e => { throw new Error(e.error) })
-    } else {
-      return r
-    }
+    if (r.status === 200) return r.json()
+    return r.json().then(e => { throw new Error(e.message) })
   })
-  .then(r => r.json())
-  .then(data => {
-    if (data.user_info.status === 'Expired') {
-      throw new Error('Trial expired.')
-    }
-    return data
-  })
-  .then(panel => store.dispatch({type: 'dataComplete', data: panel}))
-  .catch(err => store.dispatch({type: 'dataError', data: err}))
 
-const app = (state = {selectedStream: null, error: null, showLogin: false, loggingIn: false, user: initialState.user, channels: initialState.channels, categories: initialState.categories}, action) => {
+export const reducer = (state = {user, streams: [], stream: null, categories: [], category: null, videoType: localStorage.videoType || 'live', formInProgress: false, showLogin: false, formError: null, formUser: '', formPassword: ''}, action) => {
   switch (action.type) {
-    case 'loginShow':
-      return Object.assign({}, state, {showLogin: true, loggingIn: false})
-    case 'loginCancel':
-      return Object.assign({}, state, {showLogin: false, loggingIn: false})
-    case 'loginUpdate':
-      const user = Object.assign({}, state.user)
-      user[action.data.name] = action.data.value
-      return Object.assign({}, state, {user})
-    case 'login':
-      updateData(state)
-      return Object.assign({}, state, {loggingIn: true})
-    case 'dataComplete':
-      localStorage.channels = JSON.stringify(action.data.available_channels)
-      localStorage.categories = JSON.stringify(action.data.categories)
-      localStorage.user = JSON.stringify(action.data.user_info)
-      return Object.assign({}, state, {error: null, showLogin: false, loggingIn: false, channels: action.data.available_channels, categories: action.data.categories, user: action.data.user_info})
-    case 'dataError':
-      return Object.assign({}, state, {showLogin: true, loggingIn: false, error: action.data})
+    case 'set':
+      if (action.data.field === 'videoType') {
+        localStorage.videoType = action.data.value
+        get(`?username=${state.user.username}&password=${state.user.password}&action=get_${action.data.value}_categories`)
+          .then(cats => {
+            store.dispatch({type: 'set', data: {field: 'categories', value: cats}})
+          })
+        return Object.assign({}, state, {videoType: action.data.value, categories: [], streams: []})
+      }
+      if (action.data.field === 'category' && action.data.value !== null) {
+        // find category with that name
+        const cat = state.categories.filter(c => c.category_name === action.data.value).pop()
+        get(`?username=${state.user.username}&password=${state.user.password}&action=get_${state.videoType}_streams&category_id=${cat.category_id}`)
+          .then(streams => {
+            store.dispatch({type: 'set', data: {field: 'streams', value: streams}})
+          })
+      }
+      return Object.assign({}, state, {[action.data.field]: action.data.value})
+
     case 'logout':
-      localStorage.removeItem('channels')
-      localStorage.removeItem('categories')
       localStorage.removeItem('user')
-      return Object.assign({}, state, {channels: {}, categories: {}, user: {}})
-    case 'setStream':
-      return Object.assign({}, state, {selectedStream: action.data})
-    default:
-      return state
+      return Object.assign({}, state, {user: null})
+
+    case 'login':
+      get(`?username=${state.formUser}&password=${state.formPassword}`)
+        .then(u => {
+          if (!u.user_info || u.user_info.auth !== 1) {
+            throw new Error('Bad Username / Password')
+          }
+          store.dispatch({type: 'login:complete', data: u.user_info})
+          store.dispatch({type: 'set', data: {field: 'videoType', value: state.videoType}})
+        })
+        .catch(e => store.dispatch({type: 'login:error', data: e.message}))
+      return Object.assign({}, state, {formInProgress: true})
+    case 'login:complete':
+      localStorage.user = JSON.stringify(action.data)
+      return Object.assign({}, state, {user: action.data, showLogin: false, formError: null, formInProgress: false})
+    case 'login:error':
+      return Object.assign({}, state, {formError: action.data, formInProgress: false})
+
+    default: return state
   }
 }
 
-const store = createStore(app, process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+const store = createStore(reducer, process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+// setup initial categories if user is logged in
+if (user) {
+  store.dispatch({type: 'set', data: {field: 'videoType', value: 'live'}})
+}
 
 export default store
