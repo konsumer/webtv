@@ -10,7 +10,7 @@ import c from './LoginForm.css'
 export const LoginForm = ({formUser, formPassword, formError, formInProgress, onLogin, onChange}) => (
   <Form className={c.LoginForm}>
     <legend>login</legend>
-    {formError && <div className={c.error}>{formError}</div>}
+    {formError && <div className='mui--text-danger'>{formError}</div>}
     <Input type='text' hint='username' value={formUser} onChange={onChange('formUser')} autoFocus floatingLabel required />
     <Input type='password' hint='password' value={formPassword} onChange={onChange('formPassword')} floatingLabel required />
     <div className={c.buttons}>

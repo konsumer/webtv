@@ -48,6 +48,24 @@ const config = {
             }
           }
         ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: process.env.NODE_ENV === 'production',
+              sourceMap: process.env.NODE_ENV !== 'production'
+            }
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
       }
     ]
   },

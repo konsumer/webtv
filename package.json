@@ -4,7 +4,7 @@
   "description": "web-based client for liteiptv",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --progress --quiet --hot --inline --no-info --content-base=./webroot",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --progress --quiet --hot --inline --no-info --open --history-api-fallback --content-base=./webroot",
     "build": "cross-env NODE_ENV=production webpack --progress",
     "deploy": "npm run build && git-directory-deploy --directory webroot --branch gh-pages",
     "test": "standard --fix 'src/**/*.js' && jest"
@@ -39,9 +39,11 @@
     "css-loader": "^0.28.4",
     "git-directory-deploy": "^1.5.1",
     "jest": "^20.0.4",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
     "standard": "^10.0.2",
     "style-loader": "^0.18.2",
-    "webpack": "^3.0.0",
+    "webpack": "^3.1.0",
     "webpack-dev-server": "^2.5.0"
   },
   "babel": {

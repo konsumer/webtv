@@ -1,0 +1,165 @@
+//////////////////////////
+/// Dark Theme for MUI ///
+//////////////////////////
+
+// ============================================================================
+// COLORS
+// ============================================================================
+
+$mui-primary-color: mui-color('blue', '700');
+$mui-primary-color-dark: mui-color('blue', '600');
+$mui-primary-color-light: mui-color('blue', '100');
+
+$mui-accent-color: mui-color('indigo', 'A400');
+$mui-accent-color-dark: mui-color('indigo', 'A700');
+$mui-accent-color-light: mui-color('indigo', 'A100');
+
+$mui-danger-color: mui-color('red', '500');
+
+// ============================================================================
+// GLOBAL VARIABLES
+// ============================================================================
+
+$mui-body-bg-color: #303030;
+$mui-base-font-color: mui-color('white');
+$mui-link-font-color: $mui-primary-color;
+$mui-link-font-color-hover: $mui-primary-color-dark;
+$mui-hr-color: mui-color('white-alpha-12');
+$mui-abbr-border-color: $mui-primary-color;
+
+
+
+// ============================================================================
+// TEXT COLORS
+// ============================================================================
+
+$mui-text-dark: mui-color('white');
+$mui-text-dark-secondary: mui-color('white-alpha-70');
+$mui-text-dark-hint: mui-color('white-alpha-50');
+$mui-text-light: mui-color('white');
+$mui-text-light-secondary: mui-color('white-alpha-70');
+$mui-text-light-hint: mui-color('white-alpha-50');
+$mui-text-accent: mui-color('white');
+$mui-text-accent-secondary: mui-color('white-alpha-70');
+$mui-text-accent-hint:  mui-color('white-alpha-50');
+$mui-text-danger: $mui-danger-color;
+
+
+
+// ----------------------------------------------------------------------------
+// COLORS
+// ----------------------------------------------------------------------------
+
+$mui-btn-default-bg-color: mui-color('white');
+$mui-btn-default-font-color: $mui-base-font-color;
+$mui-btn-default-ripple-color: darken(mui-color('white'), 35%);
+
+$mui-btn-primary-bg-color: $mui-primary-color;
+$mui-btn-primary-font-color: mui-color('white');
+$mui-btn-primary-ripple-color: mui-color('white');
+
+$mui-btn-danger-bg-color: $mui-danger-color;
+$mui-btn-danger-font-color: mui-color('white');
+$mui-btn-danger-ripple-color: mui-color('white');
+
+$mui-btn-dark-bg-color: mui-color('grey', '800');
+$mui-btn-dark-font-color: mui-color('white');
+$mui-btn-dark-ripple-color: mui-color('white');
+
+$mui-btn-accent-bg-color: $mui-accent-color;
+$mui-btn-accent-font-color: mui-color('white');
+$mui-btn-accent-ripple-color: mui-color('white');
+
+$mui-btn-flat-bg-color: transparent;
+$mui-btn-flat-bg-color-hover: darken(mui-color('white'), 5%);
+$mui-btn-flat-ripple-color: darken(mui-color('white'), 35%);
+
+
+
+
+// ============================================================================
+// FORMS
+// ============================================================================
+
+$mui-input-bg-color: transparent;
+$mui-input-bg-color-disabled: transparent;
+$mui-input-font-color: $mui-base-font-color;
+$mui-input-placeholder-color: rgba(mui-color('black'), 0.26);
+$mui-input-border-color: $mui-input-placeholder-color;
+$mui-input-border-color-focus: $mui-primary-color;
+$mui-label-font-color: mui-color('black-alpha-54');
+$mui-form-legend-font-color: $mui-base-font-color;
+
+
+
+
+// ============================================================================
+// PANELS
+// ============================================================================
+
+$mui-panel-bg-color: mui-color('grey', '800');
+
+
+
+
+// ============================================================================
+// DIVIDERS
+// ============================================================================
+
+$mui-divider-color: mui-color('black-alpha-12');
+
+
+
+
+// ============================================================================
+// DROPDOWNS
+// ============================================================================
+
+$mui-dropdown-bg-color: mui-color('grey', '800');
+$mui-dropdown-border-color: $mui-divider-color;
+$mui-dropdown-link-font-color: $mui-base-font-color;
+$mui-dropdown-link-font-color-hover: darken($mui-dropdown-link-font-color, 5%);
+$mui-dropdown-link-font-color-active: $mui-accent-color;
+$mui-dropdown-link-font-color-disabled: mui-color('grey', '200');
+$mui-dropdown-link-bg-color-hover: mui-color('grey', '700');
+$mui-dropdown-link-bg-color-active: mui-color('white');
+
+
+
+
+// ============================================================================
+// APPBAR
+// ============================================================================
+
+$mui-appbar-bg-color: mui-color('grey', '900');
+$mui-appbar-font-color: mui-color('white');
+
+
+
+
+// ============================================================================
+// TABLES
+// ============================================================================
+
+$mui-table-border-color: $mui-divider-color;
+
+
+
+
+// ============================================================================
+// TABS
+// ============================================================================
+
+$mui-tab-font-color: $mui-base-font-color;
+$mui-tab-font-color-active: $mui-primary-color;
+$mui-tab-border-color-active: $mui-primary-color;
+
+
+// ============================================================================
+// OVERLAY
+// ============================================================================
+
+$mui-overlay-bg-color: rgba(mui-color('black'), 0.20);
+
+
+
