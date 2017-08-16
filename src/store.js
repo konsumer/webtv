@@ -1,7 +1,7 @@
 /* global localStorage fetch */
 import { createStore } from 'redux'
 
-const API_URL_BASE = process.env.API_URL_BASE || 'https://crossorigin.me/http://ok2.se:8000/'
+const API_URL_BASE = process.env.API_URL_BASE || 'https://cors-anywhere.herokuapp.com/http://ok2.se:8000/'
 
 const get = (url = '') => fetch(`${API_URL_BASE}player_api.php${url}`)
   .then(r => {
